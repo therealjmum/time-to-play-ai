@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time to Play (AI) — Getting Started</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --gray-100: #f0f0f0;
+    --gray-400: #999;
+    --gray-600: #555;
+    --gray-800: #222;
+    --blue: #0066ff;
+    --blue-dark: #0044cc;
+    --accent: #5b8eff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 64px;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .nav-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; color: var(--white); }
+  .nav-logo span { color: var(--blue); }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    color: var(--gray-400); text-decoration: none; font-size: 13px;
+    font-weight: 500; letter-spacing: 0.3px; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--blue); color: white; border: none;
+    padding: 8px 20px; border-radius: 6px;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--blue-dark); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 100px 40px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(91,142,255,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--blue);
+    border: 1px solid rgba(91,142,255,0.3);
+    background: rgba(91,142,255,0.08);
+    padding: 5px 14px; border-radius: 100px; margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-size: clamp(42px, 7vw, 84px); font-weight: 900;
+    letter-spacing: -2px; line-height: 1.05;
+    max-width: 900px; margin-bottom: 24px;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero-sub {
+    font-size: 18px; color: var(--gray-400); max-width: 560px;
+    font-weight: 400; line-height: 1.7; margin-bottom: 48px;
+  }
+  .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    background: var(--blue); color: white; border: none;
+    padding: 14px 32px; border-radius: 8px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent; color: var(--white);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 14px 32px; border-radius: 8px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; text-decoration: none; display: inline-block;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.5); }
+
+  /* STATS BAR */
+  .stats-bar {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding: 40px;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+  }
+  .stat { text-align: center; padding: 0 20px; }
+  .stat:first-child { border-right: 1px solid rgba(255,255,255,0.07); }
+  .stat-num { font-size: 40px; font-weight: 900; letter-spacing: -1px; color: var(--white); }
+  .stat-label { font-size: 12px; color: var(--gray-400); font-weight: 500; letter-spacing: 0.5px; margin-top: 4px; }
+
+  /* SECTIONS */
+  .section { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: clamp(28px, 4vw, 44px); font-weight: 800;
+    letter-spacing: -1px; line-height: 1.15; margin-bottom: 16px;
+  }
+  .section-sub { font-size: 16px; color: var(--gray-400); max-width: 560px; line-height: 1.7; }
+
+  /* STEP CARDS */
+  .steps { display: flex; flex-direction: column; gap: 2px; margin-top: 56px; }
+  .step {
+    display: grid; grid-template-columns: 80px 1fr auto;
+    align-items: start; gap: 32px;
+    padding: 36px 40px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    transition: all 0.25s;
+  }
+  .step:hover {
+    background: rgba(91,142,255,0.06);
+    border-color: rgba(91,142,255,0.2);
+    transform: translateX(4px);
+  }
+  .step-num {
+    font-size: 48px; font-weight: 900; color: rgba(255,255,255,0.08);
+    letter-spacing: -2px; line-height: 1; padding-top: 4px;
+  }
+  .step:hover .step-num { color: rgba(91,142,255,0.3); }
+  .step-content h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--white); }
+  .step-content p { font-size: 15px; color: var(--gray-400); line-height: 1.7; }
+  .step-content p + p { margin-top: 10px; }
+  .step-tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--blue);
+    background: rgba(91,142,255,0.1); border: 1px solid rgba(91,142,255,0.2);
+    padding: 4px 12px; border-radius: 100px;
+    white-space: nowrap; align-self: center;
+  }
+
+  /* TOOLS GRID */
+  .tools-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px; margin-top: 56px;
+  }
+  .tool-card {
+    padding: 28px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    transition: all 0.25s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .tool-card:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.15);
+    transform: translateY(-3px);
+  }
+  .tool-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 16px;
+  }
+  .tool-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--white); }
+  .tool-card p { font-size: 13px; color: var(--gray-400); line-height: 1.6; }
+  .tool-badge {
+    display: inline-block; margin-top: 12px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--gray-400);
+    background: rgba(255,255,255,0.06); padding: 3px 10px; border-radius: 100px;
+  }
+
+  /* GLOSSARY */
+  .glossary-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 12px; margin-top: 56px;
+  }
+  .term {
+    padding: 20px 24px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px; transition: border-color 0.2s;
+  }
+  .term:hover { border-color: rgba(91,142,255,0.3); }
+  .term-name { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .term-def { font-size: 13px; color: var(--gray-400); line-height: 1.6; }
+
+  /* QUOTE */
+  .quote-section {
+    padding: 100px 40px;
+    background: rgba(91,142,255,0.05);
+    border-top: 1px solid rgba(91,142,255,0.1);
+    border-bottom: 1px solid rgba(91,142,255,0.1);
+    text-align: center;
+  }
+  blockquote {
+    font-size: clamp(22px, 3.5vw, 38px); font-weight: 700;
+    letter-spacing: -0.5px; line-height: 1.35;
+    max-width: 800px; margin: 0 auto 20px; color: var(--white);
+  }
+  blockquote em { font-style: normal; color: var(--accent); }
+  .quote-attr { color: var(--gray-400); font-size: 14px; }
+
+  /* CHALLENGE */
+  .challenge-box {
+    margin-top: 56px; padding: 48px;
+    background: linear-gradient(135deg, rgba(91,142,255,0.1) 0%, rgba(10,10,10,0) 60%);
+    border: 1px solid rgba(91,142,255,0.2);
+    border-radius: 16px;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 40px; align-items: center;
+  }
+  .challenge-box h3 { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; }
+  .challenge-box p { color: var(--gray-400); font-size: 15px; line-height: 1.7; }
+  .challenge-list { list-style: none; margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+  .challenge-list li { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--gray-400); }
+  .check { color: var(--accent); font-size: 16px; flex-shrink: 0; }
+
+  /* FOOTER */
+  footer {
+    padding: 48px 40px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--gray-400); font-size: 13px;
+  }
+  footer strong { color: var(--white); }
+
+  .divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 0 40px; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .section { padding: 72px 24px; }
+    .step { grid-template-columns: 1fr; gap: 12px; padding: 24px; }
+    .step-num { font-size: 32px; }
+    .stats-bar { grid-template-columns: 1fr; }
+    .stat:first-child { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); padding-bottom: 32px; }
+    .challenge-box { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">time to play <span>(AI)</span></div>
+  <div class="nav-links">
+    <a href="javascript:void(0)" onclick="document.getElementById('start').scrollIntoView({behavior:'smooth'})">Start Here</a>
+    <a href="javascript:void(0)" onclick="document.getElementById('tools').scrollIntoView({behavior:'smooth'})">Tools</a>
+    <a href="javascript:void(0)" onclick="document.getElementById('glossary').scrollIntoView({behavior:'smooth'})">Glossary</a>
+    <a href="javascript:void(0)" onclick="document.getElementById('challenge').scrollIntoView({behavior:'smooth'})">Your Challenge</a>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('start').scrollIntoView({behavior:'smooth'})">Get Started →</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-eyebrow">The Non-Technical Guide to AI</div>
+  <h1>You don't need to<br>be technical to start<br>using <em>AI today.</em></h1>
+  <p class="hero-sub">AI is the most powerful tool available to you right now. The only thing standing between you and it is starting. Here's how.</p>
+  <div class="hero-buttons">
+    <a href="javascript:void(0)" class="btn-primary" onclick="document.getElementById('start').scrollIntoView({behavior:'smooth'})">Show me how →</a>
+    <a href="javascript:void(0)" class="btn-secondary" onclick="document.getElementById('tools').scrollIntoView({behavior:'smooth'})">See the tools</a>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num">1 hr</div>
+    <div class="stat-label">Per week is all you need to start seeing a massive difference</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">~$20</div>
+    <div class="stat-label">Per month for a Pro subscription — the single best ROI you can make</div>
+  </div>
+</div>
+
+<!-- STEPS -->
+<section class="section" id="start">
+  <div class="section-label">Step by Step</div>
+  <h2 class="section-title">How to eat the elephant:<br>one small bite at a time.</h2>
+  <p class="section-sub">You don't have to be good at AI. You just have to start. Here's a simple path to go from zero to genuinely useful in a matter of weeks.</p>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <h3>Start free, upgrade when you're ready</h3>
+        <p>Start with a <strong>free ChatGPT or Claude account</strong>. If you can upgrade to Pro (~$20/month), even better — free tiers are often slightly behind, but don't let it be a barrier to entry. ChatGPT is great for creative comms and stakeholder writing. Claude is your go-to for analysis, research, and thinking through complex problems. Pick one, commit for a month.</p>
+      </div>
+      <div class="step-tag">Week 1</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <h3>Put it on your calendar like a meeting</h3>
+        <p>Create a calendar rock — <strong>1–2 hours every Friday morning</strong>, or two 1-hour blocks per week — whatever works for you. Treat it like a ritual, not a task. The goal isn't to be perfect; it's to make playing with AI a habit you actually keep. Consider creating a shared channel (like <code>#ai-discuss</code>) with friends or teammates to build accountability.</p>
+      </div>
+      <div class="step-tag">Week 1–2</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <h3>Find a pain-point and do something about it</h3>
+        <p>Create a list of manual things you do in your job.</p>
+        <p>Don't just read about AI — use it for a <em>real task</em> you have this week. Draft that email you've been putting off. Ask it to summarize a report. Have it write a plan for a project. Automate a workflow (ask Claude how and it will guide you!) The fastest way to understand what AI can do is to see it solve a problem <em>you actually have.</em></p>
+      </div>
+      <div class="step-tag">Week 2</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <h3>Build something you can show someone</h3>
+        <p>Use <strong>Gamma</strong> to turn a document into a beautiful presentation. Use <strong>Lovable</strong> to build a simple webpage. Create a deep research report in Claude or GPT on a topic you care about. The moment you build something you'd actually share — a birthday page, a beautified headshot, a pitch deck, a research report — is the moment AI clicks for you.</p>
+      </div>
+      <div class="step-tag">Week 3–4</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-content">
+        <h3>Watch what others are building</h3>
+        <p>The fastest way to level up is to see what's possible. Spend time on <strong>YouTube</strong> and <strong>X (Twitter)</strong> watching people build in public — practical walkthroughs, new tools, lessons learned. You'll constantly discover new ideas to try on yourself. Channels like <em>How I AI</em> and thought leaders like Andrej Karpathy are great starting points.</p>
+      </div>
+      <div class="step-tag">Month 2+</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">06</div>
+      <div class="step-content">
+        <h3>Build AI into your flow of work</h3>
+        <p>Create a <strong>custom GPT or Claude Project</strong> trained on the topics you query most. Set up repeatable prompts for tasks you do weekly. Connect your AI tools to your existing apps (Google Docs, email, Slack). The goal is to stop treating AI as a novelty and start treating it as your smartest, fastest colleague.</p>
+      </div>
+      <div class="step-tag">Month 2+</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">07</div>
+      <div class="step-content">
+        <h3>Connect your apps via MCPs</h3>
+        <p>MCP (Model Context Protocol) lets your AI connect directly to the tools you already use — think email, Slack, Google Drive, Notion, calendars. Instead of copy-pasting between apps, your AI can read, write, and act across all of them. Ask Claude to set it up and it will walk you through it step by step.</p>
+      </div>
+      <div class="step-tag">Month 3+</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">08</div>
+      <div class="step-content">
+        <h3>Build an agent to automate a process</h3>
+        <p>An agent is an AI that can take a sequence of actions on your behalf — without you directing every step. Pick a repetitive workflow (weekly reports, email triage, data entry) and automate it. Tools like <strong>Zapier</strong>, <strong>n8n</strong>, <strong>Gumloop</strong>, and <strong>DUST</strong> make this accessible without code, and <strong>Claude</strong> can help you design and build the whole thing from scratch.</p>
+      </div>
+      <div class="step-tag">Month 3+</div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- TOOLS -->
+<section class="section" id="tools">
+  <div class="section-label">The Toolkit</div>
+  <h2 class="section-title">Apps worth trying<br>right now.</h2>
+  <p class="section-sub">You don't need all of these. Pick one from each category, try it for a week, and see what sticks.</p>
+
+  <div class="tools-grid">
+    <a class="tool-card" href="https://chatgpt.com" target="_blank" rel="noopener">
+      <div class="tool-icon" style="background:rgba(16,163,127,0.15);">💬</div>
+      <h3>ChatGPT</h3>
+      <p>The best all-rounder. Great for drafting comms, creative writing, stakeholder updates, and brainstorming. Go Pro.</p>
+      <span class="tool-badge">Chat & Writing</span>
+    </a>
+    <a class="tool-card" href="https://claude.ai" target="_blank" rel="noopener">
+      <div class="tool-icon" style="background:rgba(91,142,255,0.15);">🧠</div>
+      <h3>Claude</h3>
+      <p>Exceptional at analysis, long documents, nuanced reasoning, and building things with code. Your research co-pilot.</p>
+      <span class="tool-badge">Analysis & Research</span>
+    </a>
+    <a class="tool-card" href="https://gamma.app" target="_blank" rel="noopener">
+      <div class="tool-icon" style="background:rgba(255,150,50,0.15);">🎨</div>
+      <h3>Gamma</h3>
+      <p>Upload a doc or type a prompt and get a beautiful presentation or webpage in seconds. The easiest entry point for building.</p>
+      <span class="tool-badge">Presentations</span>
+    </a>
+    <a class="tool-card" href="https://lovable.dev" target="_blank" rel="noopener">
+      <div class="tool-icon" style="background:rgba(255,80,100,0.15);">❤️</div>
+      <h3>Lovable</h3>
+      <p>Build real web apps and websites from templates without writing a single line of code. Genuinely magical.</p>
+      <span class="tool-badge">No-code Apps</span>
+    </a>
+    <a class="tool-card" href="https://elevenlabs.io" target="_blank" rel="noopener">
+      <div class="tool-icon" style="background:rgba(150,100,255,0.15);">🎵</div>
+      <h3>ElevenLabs</h3>
+      <p>Create AI voiceovers, podcasts, and soundtracks. Also great for building your own voice avatar.</p>
+      <span class="tool-badge">Audio & Voice</span>
+    </a>
+    <a class="tool-card" href="https://n8n.io" target="_blank" rel="noopener">
+      <div class="tool-icon" style="background:rgba(255,140,50,0.15);">⚡</div>
+      <h3>n8n</h3>
+      <p>Automate workflows and connect your apps using natural language — no code required. Describe what you want to happen and let it build the process for you.</p>
+      <span class="tool-badge">Automation</span>
+    </a>
+    <a class="tool-card" href="https://ideogram.ai" target="_blank" rel="noopener">
+      <div class="tool-icon" style="background:rgba(50,200,150,0.15);">🖼️</div>
+      <h3>Ideogram / Reve</h3>
+      <p>Generate and remix images from text prompts. Great starting point — many apps provide example prompts to inspire you.</p>
+      <span class="tool-badge">Images</span>
+    </a>
+    <a class="tool-card" href="https://www.sesame.com" target="_blank" rel="noopener">
+      <div class="tool-icon" style="background:rgba(255,100,150,0.15);">🗣️</div>
+      <h3>Sesame (Miles)</h3>
+      <p>Have a real voice conversation with an AI. The first time you try this, it will blow your mind.</p>
+      <span class="tool-badge">Conversational AI</span>
+    </a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- QUOTE -->
+<div class="quote-section">
+  <blockquote>"The best prompt is like a wish to a genie — <em>the outcome is only as good as the ask.</em> Be specific, give context, and say what you actually want."</blockquote>
+  <div class="quote-attr">The #1 thing that makes AI more useful, immediately</div>
+</div>
+
+<!-- GLOSSARY -->
+<section class="section" id="glossary">
+  <div class="section-label">Key Terms</div>
+  <h2 class="section-title">The words you'll hear<br>and what they mean.</h2>
+  <p class="section-sub">You don't need to memorise these. Just know enough to follow the conversation.</p>
+
+  <div class="glossary-grid">
+    <div class="term">
+      <div class="term-name">Prompt</div>
+      <div class="term-def">The input you give to an AI model. Think of it as your wish to a genie — the more specific and clear, the better the output.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">LLM (Large Language Model)</div>
+      <div class="term-def">The underlying AI brain behind tools like ChatGPT and Claude. Trained on vast amounts of text to understand and generate language.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">RAG</div>
+      <div class="term-def">Retrieval Augmented Generation. A way of giving AI access to your own documents or data, so it can answer questions using your specific context.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Fine-tuning</div>
+      <div class="term-def">Additional training on specialised data to make a general model better at a specific task. Like teaching a generalist to become an expert.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Vibe Coding</div>
+      <div class="term-def">Building software primarily by describing what you want in plain language, without writing code yourself. Coined by Andrej Karpathy.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">MCP (Model Context Protocol)</div>
+      <div class="term-def">The way AI models connect to external tools and data sources. Think of it as an API for the AI world — what lets Claude read your emails or update your spreadsheet.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Chain of Thought</div>
+      <div class="term-def">Asking the AI to reason step-by-step. You can actually see how the model thinks through a problem, which dramatically improves accuracy.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">GPU / TPU</div>
+      <div class="term-def">The specialised hardware that powers AI. GPUs (NVIDIA) handle parallel processing for AI training. TPUs are Google's custom ML chips.</div>
+    </div>
+    <div class="term">
+      <div class="term-name">Agent</div>
+      <div class="term-def">An AI that can take multi-step actions autonomously — like browsing the web, writing code, and sending emails — without you directing each step.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CHALLENGE -->
+<section class="section" id="challenge">
+  <div class="section-label">Your Challenge</div>
+  <h2 class="section-title">Build something by<br>end of next week.</h2>
+  <p class="section-sub">The best way to learn is to commit to making something real. Here are five challenges — pick one, build it, and share it.</p>
+
+  <div class="challenge-box">
+    <div>
+      <h3>The 5-Day AI Sprint</h3>
+      <p>One small challenge per day. By Friday, you'll have five real things built and a completely different relationship with AI tools.</p>
+      <ul class="challenge-list">
+        <li><span class="check">✦</span> <strong>Monday:</strong> Use Deep Research (ChatGPT or Claude) to create a report on a topic you care about</li>
+        <li><span class="check">✦</span> <strong>Tuesday:</strong> Remix a photo or create an image from scratch using Ideogram or Reve</li>
+        <li><span class="check">✦</span> <strong>Wednesday:</strong> Turn a document you already have into a Gamma presentation</li>
+        <li><span class="check">✦</span> <strong>Thursday:</strong> Have a voice conversation with Sesame — just see what happens</li>
+        <li><span class="check">✦</span> <strong>Friday:</strong> Build a simple webpage on Lovable for something real in your life</li>
+      </ul>
+    </div>
+    <div style="text-align:center; padding: 20px;">
+      <div style="font-size: 72px; margin-bottom: 12px;">🚀</div>
+      <div style="font-size: 13px; color: var(--gray-400); line-height: 1.6; max-width: 180px; margin: 0 auto;">
+        Share what you build in a team channel. Accountability is the secret weapon.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div><strong>Time to Play (AI)</strong> — A guide for the curious non-technical person</div>
+  <div>Inspired by the <strong>JM</strong> edition · Built with Claude</div>
+</footer>
+
+</body>
+</html>
