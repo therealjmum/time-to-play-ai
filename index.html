@@ -4,6 +4,66 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Time to Play (AI) — Getting Started</title>
+
+<!-- Open Graph / Social sharing -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://therealjmum.github.io/time-to-play-ai">
+<meta property="og:title" content="Time to Play (AI) — The Non-Technical Guide to AI">
+<meta property="og:description" content="You don't need to be technical to start using AI today. A beginner-friendly guide to getting started with AI tools.">
+<meta property="og:image" content="https://therealjmum.github.io/time-to-play-ai/preview.png">
+
+<!-- Twitter/X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Time to Play (AI) — The Non-Technical Guide to AI">
+<meta name="twitter:description" content="You don't need to be technical to start using AI today. A beginner-friendly guide to getting started with AI tools.">
+<meta name="twitter:image" content="https://therealjmum.github.io/time-to-play-ai/preview.png">
+
+<script>
+// Generate preview image and upload as canvas-based og:image fallback
+window.addEventListener('load', function() {
+  var canvas = document.createElement('canvas');
+  canvas.width = 1200; canvas.height = 630;
+  var ctx = canvas.getContext('2d');
+  // Background
+  ctx.fillStyle = '#0a0a0a';
+  ctx.fillRect(0, 0, 1200, 630);
+  // Blue glow
+  var grd = ctx.createRadialGradient(600, 0, 0, 600, 0, 600);
+  grd.addColorStop(0, 'rgba(91,142,255,0.25)');
+  grd.addColorStop(1, 'rgba(10,10,10,0)');
+  ctx.fillStyle = grd;
+  ctx.fillRect(0, 0, 1200, 630);
+  // Eyebrow
+  ctx.fillStyle = 'rgba(91,142,255,0.15)';
+  ctx.beginPath(); ctx.roundRect(430, 140, 340, 40, 20); ctx.fill();
+  ctx.fillStyle = '#5b8eff';
+  ctx.font = '700 13px Inter, sans-serif';
+  ctx.letterSpacing = '2px';
+  ctx.textAlign = 'center';
+  ctx.fillText('THE NON-TECHNICAL GUIDE TO AI', 600, 167);
+  // Main title
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '900 72px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Time to Play', 600, 290);
+  ctx.fillStyle = '#5b8eff';
+  ctx.fillText('(AI)', 600, 375);
+  // Subtitle
+  ctx.fillStyle = '#999999';
+  ctx.font = '400 22px Inter, sans-serif';
+  ctx.fillText('You don\'t need to be technical to start.', 600, 440);
+  // Bottom label
+  ctx.fillStyle = '#333333';
+  ctx.fillRect(0, 580, 1200, 50);
+  ctx.fillStyle = '#666666';
+  ctx.font = '500 14px Inter, sans-serif';
+  ctx.fillText('therealjmum.github.io/time-to-play-ai', 600, 611);
+  // Set as og:image
+  var img = canvas.toDataURL('image/png');
+  document.querySelector('meta[property="og:image"]').setAttribute('content', img);
+  document.querySelector('meta[name="twitter:image"]').setAttribute('content', img);
+});
+</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
@@ -352,7 +412,7 @@
       <div class="step-num">05</div>
       <div class="step-content">
         <h3>Watch what others are building</h3>
-        <p>The fastest way to level up is to see what's possible. Spend time on <strong>YouTube</strong> and <strong>X (Twitter)</strong> watching people build in public — practical walkthroughs, new tools, lessons learned. You'll constantly discover new ideas to try on yourself. Channels like <em>How I AI</em> and thought leaders like Andrej Karpathy are great starting points.</p>
+        <p>The fastest way to level up is to see what's possible. Spend time on <strong>YouTube</strong> and <strong>X (Twitter)</strong> watching people build in public — practical walkthroughs, new tools, lessons learned. You'll constantly discover new ideas to try on yourself. Channels like <a href="https://www.youtube.com/@howiaipodcast" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(91,142,255,0.4);">How I AI</a> and thought leaders like <a href="https://x.com/karpathy" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(91,142,255,0.4);">Andrej Karpathy</a> are great starting points.</p>
       </div>
       <div class="step-tag">Month 2+</div>
     </div>
@@ -454,6 +514,125 @@
   <blockquote>"The best prompt is like a wish to a genie — <em>the outcome is only as good as the ask.</em> Be specific, give context, and say what you actually want."</blockquote>
   <div class="quote-attr">The #1 thing that makes AI more useful, immediately</div>
 </div>
+
+<!-- PROMPTS -->
+<section class="section" id="prompts">
+  <div class="section-label">Example Prompts</div>
+  <h2 class="section-title">Copy, paste, and<br>make it your own.</h2>
+  <p class="section-sub">These prompts are designed to show AI at its best — replace the bracketed parts with your own context and watch what happens.</p>
+
+  <div class="prompts-grid">
+
+    <div class="prompt-card">
+      <div class="prompt-tag">Process & Ops</div>
+      <p class="prompt-text">"Here is our current process for [X]: [paste steps]. Identify the inefficiencies, suggest where AI could automate or assist, and give me a phased implementation plan."</p>
+      <button class="copy-btn" onclick="copyPrompt(this, 'Here is our current process for [X]: [paste steps]. Identify the inefficiencies, suggest where AI could automate or assist, and give me a phased implementation plan.')">Copy prompt</button>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-tag">Decision Making</div>
+      <p class="prompt-text">"I need to make a decision about [X]. Here are the options and what I know: [paste]. Build me a decision matrix, weight the criteria, and give me a recommendation with your reasoning."</p>
+      <button class="copy-btn" onclick="copyPrompt(this, 'I need to make a decision about [X]. Here are the options and what I know: [paste]. Build me a decision matrix, weight the criteria, and give me a recommendation with your reasoning.')">Copy prompt</button>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-tag">Strategy</div>
+      <p class="prompt-text">"Play the role of a smart, skeptical team member and pressure-test this business idea: [paste]. Don't be kind — find the holes."</p>
+      <button class="copy-btn" onclick="copyPrompt(this, 'Play the role of a smart, skeptical team member and pressure-test this business idea: [paste]. Don\'t be kind — find the holes.')">Copy prompt</button>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-tag">People & HR</div>
+      <p class="prompt-text">"Here are 5 employees we lost last quarter and the reasons given: [paste]. Identify patterns, diagnose the root cause, and suggest what we should change in our approach."</p>
+      <button class="copy-btn" onclick="copyPrompt(this, 'Here are 5 employees we lost last quarter and the reasons given: [paste]. Identify patterns, diagnose the root cause, and suggest what we should change in our approach.')">Copy prompt</button>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-tag">Performance</div>
+      <p class="prompt-text">"Act as an operations consultant. Here are our team's OKRs and last quarter's results: [paste]. Give me an honest assessment of where we're off track and why."</p>
+      <button class="copy-btn" onclick="copyPrompt(this, 'Act as an operations consultant. Here are our team\'s OKRs and last quarter\'s results: [paste]. Give me an honest assessment of where we\'re off track and why.')">Copy prompt</button>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-tag">Research & Insight</div>
+      <p class="prompt-text">"Analyse this survey data and identify the top 3 themes, any red flags, and recommended actions: [paste data]"</p>
+      <button class="copy-btn" onclick="copyPrompt(this, 'Analyse this survey data and identify the top 3 themes, any red flags, and recommended actions: [paste data]')">Copy prompt</button>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-tag">People & HR</div>
+      <p class="prompt-text">"I'm about to have a difficult conversation with an employee about performance. Here's the context: [paste]. Help me plan what to say, anticipate their likely responses, and suggest how to keep it constructive."</p>
+      <button class="copy-btn" onclick="copyPrompt(this, 'I\'m about to have a difficult conversation with an employee about performance. Here\'s the context: [paste]. Help me plan what to say, anticipate their likely responses, and suggest how to keep it constructive.')">Copy prompt</button>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .prompts-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px; margin-top: 56px;
+  }
+  .prompt-card {
+    padding: 28px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    display: flex; flex-direction: column; gap: 16px;
+    transition: all 0.25s;
+  }
+  .prompt-card:hover {
+    background: rgba(91,142,255,0.05);
+    border-color: rgba(91,142,255,0.2);
+  }
+  .prompt-tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--blue);
+    background: rgba(91,142,255,0.1); border: 1px solid rgba(91,142,255,0.2);
+    padding: 4px 12px; border-radius: 100px;
+    display: inline-block; align-self: flex-start;
+  }
+  .prompt-text {
+    font-size: 14px; color: #ccc; line-height: 1.7;
+    font-style: italic; flex: 1;
+  }
+  .copy-btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--gray-400); font-size: 12px; font-weight: 600;
+    padding: 8px 16px; border-radius: 6px; cursor: pointer;
+    transition: all 0.2s; align-self: flex-start;
+  }
+  .copy-btn:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+  .copy-btn.copied { color: var(--accent); border-color: var(--accent); }
+</style>
+
+<script>
+  function copyPrompt(btn, text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() { btn.textContent = 'Copy prompt'; btn.classList.remove('copied'); }, 2000);
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      try {
+        document.execCommand('copy');
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() { btn.textContent = 'Copy prompt'; btn.classList.remove('copied'); }, 2000);
+      } catch(e) {
+        btn.textContent = 'Copy manually';
+      }
+      document.body.removeChild(ta);
+    }
+  }
+</script>
+
+<hr class="divider">
 
 <!-- GLOSSARY -->
 <section class="section" id="glossary">
