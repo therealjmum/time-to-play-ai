@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Time to Play (AI) — Getting Started</title>
-
-<!-- Open Graph / Social sharing -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://therealjmum.github.io/time-to-play-ai">
 <meta property="og:title" content="Time to Play (AI) — The Non-Technical Guide to AI">
@@ -15,19 +13,13 @@
 <meta name="twitter:title" content="Time to Play (AI) — The Non-Technical Guide to AI">
 <meta name="twitter:description" content="You don't need to be technical to start using AI today. A beginner-friendly guide to getting started with AI tools.">
 <meta name="twitter:image" content="https://therealjmum.github.io/time-to-play-ai/preview.png">
-
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --black: #0a0a0a; --white: #ffffff;
-    --gray-400: #999; --gray-600: #555;
-    --blue: #0066ff; --blue-dark: #0044cc; --accent: #5b8eff;
-  }
+  :root { --black: #0a0a0a; --white: #ffffff; --gray-400: #999; --blue: #0066ff; --blue-dark: #0044cc; --accent: #5b8eff; }
   html { scroll-behavior: smooth; }
   body { font-family: 'Inter', -apple-system, sans-serif; background: var(--black); color: var(--white); line-height: 1.6; overflow-x: hidden; }
 
-  /* NAV */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 64px; background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.07); }
   .nav-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; color: var(--white); }
   .nav-logo span { color: var(--blue); }
@@ -37,7 +29,6 @@
   .nav-cta { background: var(--blue); color: white; border: none; padding: 8px 20px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
   .nav-cta:hover { background: var(--blue-dark); }
 
-  /* HERO */
   .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 100px 40px 80px; position: relative; overflow: hidden; }
   .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(91,142,255,0.15) 0%, transparent 70%); pointer-events: none; }
   .hero-eyebrow { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); border: 1px solid rgba(91,142,255,0.3); background: rgba(91,142,255,0.08); padding: 5px 14px; border-radius: 100px; margin-bottom: 28px; }
@@ -50,21 +41,18 @@
   .btn-secondary { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.2); padding: 14px 32px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
   .btn-secondary:hover { border-color: rgba(255,255,255,0.5); }
 
-  /* STATS */
   .stats-bar { border-top: 1px solid rgba(255,255,255,0.07); border-bottom: 1px solid rgba(255,255,255,0.07); padding: 40px; display: grid; grid-template-columns: repeat(2, 1fr); }
   .stat { text-align: center; padding: 0 20px; }
   .stat:first-child { border-right: 1px solid rgba(255,255,255,0.07); }
   .stat-num { font-size: 40px; font-weight: 900; letter-spacing: -1px; }
   .stat-label { font-size: 12px; color: var(--gray-400); font-weight: 500; margin-top: 4px; }
 
-  /* SECTIONS */
   .section { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
   .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 16px; }
   .section-title { font-size: clamp(28px, 4vw, 44px); font-weight: 800; letter-spacing: -1px; line-height: 1.15; margin-bottom: 16px; }
   .section-sub { font-size: 16px; color: var(--gray-400); max-width: 560px; line-height: 1.7; }
   .divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 0 40px; }
 
-  /* STEPS */
   .steps { display: flex; flex-direction: column; gap: 2px; margin-top: 56px; }
   .step { display: grid; grid-template-columns: 80px 1fr auto; align-items: start; gap: 32px; padding: 36px 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; transition: all 0.25s; }
   .step:hover { background: rgba(91,142,255,0.06); border-color: rgba(91,142,255,0.2); transform: translateX(4px); }
@@ -73,9 +61,9 @@
   .step-content h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--white); }
   .step-content p { font-size: 15px; color: var(--gray-400); line-height: 1.7; }
   .step-content p + p { margin-top: 10px; }
+  .step-link { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(91,142,255,0.4); font-size: 14px; font-weight: 600; }
   .step-tag { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); background: rgba(91,142,255,0.1); border: 1px solid rgba(91,142,255,0.2); padding: 4px 12px; border-radius: 100px; white-space: nowrap; align-self: center; }
 
-  /* TOOLS */
   .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 56px; }
   .tool-card { padding: 28px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; transition: all 0.25s; text-decoration: none; color: inherit; display: block; }
   .tool-card:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); transform: translateY(-3px); }
@@ -84,13 +72,11 @@
   .tool-card p { font-size: 13px; color: var(--gray-400); line-height: 1.6; }
   .tool-badge { display: inline-block; margin-top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-400); background: rgba(255,255,255,0.06); padding: 3px 10px; border-radius: 100px; }
 
-  /* QUOTE */
   .quote-section { padding: 100px 40px; background: rgba(91,142,255,0.05); border-top: 1px solid rgba(91,142,255,0.1); border-bottom: 1px solid rgba(91,142,255,0.1); text-align: center; }
   blockquote { font-size: clamp(22px, 3.5vw, 38px); font-weight: 700; letter-spacing: -0.5px; line-height: 1.35; max-width: 800px; margin: 0 auto 20px; }
   blockquote em { font-style: normal; color: var(--accent); }
   .quote-attr { color: var(--gray-400); font-size: 14px; }
 
-  /* PROMPTS */
   .prompts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-top: 56px; }
   .prompt-card { padding: 28px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; display: flex; flex-direction: column; gap: 16px; transition: all 0.25s; }
   .prompt-card:hover { background: rgba(91,142,255,0.05); border-color: rgba(91,142,255,0.2); }
@@ -100,14 +86,12 @@
   .copy-btn:hover { background: rgba(255,255,255,0.1); color: var(--white); }
   .copy-btn.copied { color: var(--accent); border-color: var(--accent); }
 
-  /* GLOSSARY */
   .glossary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; margin-top: 56px; }
   .term { padding: 20px 24px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; transition: border-color 0.2s; }
   .term:hover { border-color: rgba(91,142,255,0.3); }
   .term-name { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
   .term-def { font-size: 13px; color: var(--gray-400); line-height: 1.6; }
 
-  /* CHALLENGE */
   .challenge-box { margin-top: 56px; padding: 48px; background: linear-gradient(135deg, rgba(91,142,255,0.1) 0%, rgba(10,10,10,0) 60%); border: 1px solid rgba(91,142,255,0.2); border-radius: 16px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
   .challenge-box h3 { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; }
   .challenge-box p { color: var(--gray-400); font-size: 15px; line-height: 1.7; }
@@ -115,13 +99,11 @@
   .challenge-list li { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--gray-400); }
   .check { color: var(--accent); font-size: 16px; flex-shrink: 0; }
 
-  /* FOOTER */
   footer { padding: 48px 40px; border-top: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: space-between; align-items: center; color: var(--gray-400); font-size: 13px; }
   footer strong { color: var(--white); }
 
   @media (max-width: 768px) {
-    nav { padding: 0 20px; }
-    .nav-links { display: none; }
+    nav { padding: 0 20px; } .nav-links { display: none; }
     .section { padding: 72px 24px; }
     .step { grid-template-columns: 1fr; gap: 12px; padding: 24px; }
     .step-num { font-size: 32px; }
@@ -134,7 +116,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">time to play <span>(AI)</span></div>
   <div class="nav-links">
@@ -147,7 +128,6 @@
   <button class="nav-cta" onclick="document.getElementById('start').scrollIntoView({behavior:'smooth'})">Get Started →</button>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-eyebrow">The Non-Technical Guide to AI</div>
@@ -159,7 +139,6 @@
   </div>
 </section>
 
-<!-- STATS -->
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-num">1 hr</div>
@@ -171,21 +150,22 @@
   </div>
 </div>
 
-<!-- STEPS -->
 <section class="section" id="start">
   <div class="section-label">Step by Step</div>
   <h2 class="section-title">How to eat the elephant 🐘<br>one small bite at a time.</h2>
   <p class="section-sub">You don't have to be good at AI. You just have to start. Here's a simple path to go from zero to genuinely useful in a matter of weeks.</p>
   <div class="steps">
+
     <div class="step">
       <div class="step-num">01</div>
       <div class="step-content">
         <h3>Start free, upgrade when you're ready</h3>
         <p>Start with a <strong>free ChatGPT or Claude account</strong>. If you can upgrade to Pro (~$20/month), even better — free tiers are often slightly behind, but don't let it be a barrier to entry. ChatGPT is great for creative comms and stakeholder writing. Claude is your go-to for analysis, research, and thinking through complex problems. Pick one, commit for a month.</p>
-        <p><a href="javascript:void(0)" onclick="document.getElementById('prompts').scrollIntoView({behavior:'smooth'})" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(91,142,255,0.4);font-size:14px;font-weight:600;">Check out easy prompts to try →</a></p>
+        <p><a href="javascript:void(0)" class="step-link" onclick="document.getElementById('prompts').scrollIntoView({behavior:'smooth'})">Check out easy prompts to try →</a></p>
       </div>
       <div class="step-tag">Week 1</div>
     </div>
+
     <div class="step">
       <div class="step-num">02</div>
       <div class="step-content">
@@ -194,6 +174,7 @@
       </div>
       <div class="step-tag">Week 1–2</div>
     </div>
+
     <div class="step">
       <div class="step-num">03</div>
       <div class="step-content">
@@ -203,6 +184,7 @@
       </div>
       <div class="step-tag">Week 2</div>
     </div>
+
     <div class="step">
       <div class="step-num">04</div>
       <div class="step-content">
@@ -211,6 +193,7 @@
       </div>
       <div class="step-tag">Week 3–4</div>
     </div>
+
     <div class="step">
       <div class="step-num">05</div>
       <div class="step-content">
@@ -219,6 +202,7 @@
       </div>
       <div class="step-tag">Month 2+</div>
     </div>
+
     <div class="step">
       <div class="step-num">06</div>
       <div class="step-content">
@@ -227,6 +211,7 @@
       </div>
       <div class="step-tag">Month 2+</div>
     </div>
+
     <div class="step">
       <div class="step-num">07</div>
       <div class="step-content">
@@ -235,6 +220,7 @@
       </div>
       <div class="step-tag">Month 3+</div>
     </div>
+
     <div class="step">
       <div class="step-num">08</div>
       <div class="step-content">
@@ -243,12 +229,12 @@
       </div>
       <div class="step-tag">Month 3+</div>
     </div>
+
   </div>
 </section>
 
 <hr class="divider">
 
-<!-- TOOLS -->
 <section class="section" id="tools">
   <div class="section-label">The Toolkit</div>
   <h2 class="section-title">Apps worth trying<br>right now.</h2>
@@ -307,13 +293,11 @@
 
 <hr class="divider">
 
-<!-- QUOTE -->
 <div class="quote-section">
   <blockquote>"The best prompt is like a wish to a genie — <em>the outcome is only as good as the ask.</em> Be specific, give context, and say what you actually want."</blockquote>
   <div class="quote-attr">The #1 thing that makes AI more useful, immediately</div>
 </div>
 
-<!-- PROMPTS -->
 <section class="section" id="prompts">
   <div class="section-label">Example Prompts</div>
   <h2 class="section-title">Copy, paste, and<br>make it your own.</h2>
@@ -354,14 +338,13 @@
 
 <hr class="divider">
 
-<!-- GLOSSARY -->
 <section class="section" id="glossary">
   <div class="section-label">Key Terms</div>
   <h2 class="section-title">The words you'll hear<br>and what they mean.</h2>
   <p class="section-sub">You don't need to memorise these. Just know enough to follow the conversation.</p>
   <div class="glossary-grid">
     <div class="term"><div class="term-name">Prompt</div><div class="term-def">The input you give to an AI model. Think of it as your wish to a genie — the more specific and clear, the better the output.</div></div>
-    <div class="term"><div class="term-name">LLM (Large Language Model)</div><div class="term-def">The AI brain behind tools like ChatGPT and Claude. Trained on vast amounts of text to understand and generate language.</div></div>
+    <div class="term"><div class="term-name">LLM</div><div class="term-def">Large Language Model. The AI brain behind tools like ChatGPT and Claude. Trained on vast amounts of text to understand and generate language.</div></div>
     <div class="term"><div class="term-name">RAG</div><div class="term-def">Retrieval Augmented Generation. A way of giving AI access to your own documents or data, so it can answer questions using your specific context.</div></div>
     <div class="term"><div class="term-name">Fine-tuning</div><div class="term-def">Additional training on specialised data to make a general AI model an expert in a specific task — like teaching a generalist to specialise.</div></div>
     <div class="term"><div class="term-name">Vibe Coding</div><div class="term-def">Building software by describing what you want in plain language, without writing code yourself. Coined by Andrej Karpathy.</div></div>
@@ -374,7 +357,6 @@
 
 <hr class="divider">
 
-<!-- CHALLENGE -->
 <section class="section" id="challenge">
   <div class="section-label">Your Challenge</div>
   <h2 class="section-title">Build something by<br>end of next week.</h2>
@@ -398,7 +380,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div><strong>Time to Play (AI)</strong> — A guide for the curious non-technical person</div>
   <div>Inspired by the <strong>JM</strong> edition · Built with Claude</div>
